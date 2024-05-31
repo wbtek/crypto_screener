@@ -22,7 +22,7 @@
             output.innerHTML = '';
             data.forEach(item => {
                 const div = document.createElement('div');
-                div.textContent = `${item.name}: ${item.total_volume}`;
+                div.textContent = `${item.symbol}: ${item.name}: ${item.total_volume}`;
                 output.appendChild(div);
             });
         }
