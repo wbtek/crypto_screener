@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Screener</title>
+</head>
+<body>
+    <h1>Crypto Screener</h1>
+    <div id="output"></div>
+    <script type="module">
+        import init, { get_crypto_data } from './pkg/crypto_screener.js';
+
+        async function run() {
+            await init();
+            const symbol = 'bitcoin';
+            const data = await get_crypto_data(symbol);
+            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+        }
+
+        run();
+    </script>
+</body>
+</html>
+
