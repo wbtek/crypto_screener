@@ -9,13 +9,22 @@
     <h1>Crypto Screener</h1>
     <div id="output"></div>
     <script type="module">
-        import init, { get_crypto_data } from './pkg/crypto_screener.js';
+        import init, { get_filtered_data } from './pkg/crypto_screener.js';
 
         async function run() {
             await init();
-            const symbol = 'bitcoin';
-            const data = await get_crypto_data(symbol);
-            document.getElementById('output').innerText = JSON.stringify(data, null, 2);
+            const data = await get_filtered_data();
+            displayData(data);
+        }
+
+        function displayData(data) {
+            const output = document.getElementById('output');
+            output.innerHTML = '';
+            data.forEach(item => {
+                const div = document.createElement('div');
+                div.textContent = `${item.name}: ${item.total_volume}`;
+                output.appendChild(div);
+            });
         }
 
         run();
