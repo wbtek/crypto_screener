@@ -71,8 +71,8 @@ SOFTWARE.
 <body>
     <h1>Crypto Screener</h1>
     <div class="sort-buttons">
-        <button onclick="sortData('symbol')">Sort by Symbol</button>
-        <button onclick="sortData('total_volume')">Sort by Volume</button>
+        <button onclick="sortData('symbol', 1)">Sort by Symbol</button>
+        <button onclick="sortData('total_volume', -1)">Sort by Volume</button>
     </div>
     <ul id="output" class="coin-list"></ul>
     <script type="module">
@@ -97,11 +97,11 @@ SOFTWARE.
             });
         }
 
-        function sortData(criteria) {
-            console.log('Sorting by:', criteria);  // Debugging log
+        function sortData(criteria, direction) {
+	    console.log('Sorting by:', criteria);  // Debugging log
             const sortedData = [...data].sort((a, b) => {
-                if (a[criteria] < b[criteria]) return -1;
-                if (a[criteria] > b[criteria]) return 1;
+                if (a[criteria] < b[criteria]) return -direction;
+                if (a[criteria] > b[criteria]) return direction;
                 return 0;
             });
             console.log('Sorted Data:', sortedData);  // Debugging log
