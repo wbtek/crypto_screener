@@ -23,92 +23,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Screener</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        h1 {
-            color: #333;
-        }
-        .coin-list {
-            width: 80%;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 0;
-            list-style: none;
-        }
-        .coin-list li {
-            background: #fff;
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .coin-list li:nth-child(odd) {
-            background: #f9f9f9;
-        }
-        .sort-buttons {
-            margin: 20px;
-        }
-        .sort-buttons button {
-            margin: 0 5px;
-        }
-    </style>
 </head>
 <body>
     <h1>Crypto Screener</h1>
-    <div class="sort-buttons">
-        <button onclick="sortData('symbol', 1)">Sort by Symbol</button>
-        <button onclick="sortData('total_volume', -1)">Sort by Volume</button>
-    </div>
-    <ul id="output" class="coin-list"></ul>
+    <pre id="output"></pre>
+    
     <script type="module">
-        import init, { get_filtered_data } from './pkg/crypto_screener.js';
-
-        let data = [];
+        import init, { fetch_data, display_data } from './pkg/crypto_screener.js';
 
         async function run() {
             await init();
-            data = await get_filtered_data();
-            console.log('Initial Data:', data);  // Debugging log
-            displayData(data);
+            const data = await fetch_data('https://api.coinlore.net/api/tickers/');
+            display_data(data);
         }
 
-        function displayData(data) {
+        // Define the log function
+        window.log = (message) => {
             const output = document.getElementById('output');
-            output.innerHTML = '';
-            data.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `${item.symbol.toUpperCase()}: ${item.name}: ${item.total_volume}`;
-                output.appendChild(li);
-            });
-        }
-
-        function sortData(criteria, direction) {
-	    console.log('Sorting by:', criteria);  // Debugging log
-            const sortedData = [...data].sort((a, b) => {
-                if (a[criteria] < b[criteria]) return -direction;
-                if (a[criteria] > b[criteria]) return direction;
-                return 0;
-            });
-            console.log('Sorted Data:', sortedData);  // Debugging log
-            displayData(sortedData);
-        }
-
-        window.sortData = sortData;  // Attach to window object to make it accessible globally
+            output.textContent += message + '\n';
+        };
 
         run();
     </script>
