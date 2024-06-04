@@ -165,7 +165,7 @@ pub async fn fetch_data(api_url: &str) -> Result<JsValue, JsValue> {
     let resp_value = JsFuture::from(window.fetch_with_request(&request)).await?;
     let resp: Response = resp_value.dyn_into().unwrap();
     let json = JsFuture::from(resp.json()?).await?;
-    let json_str = js_sys::JSON::stringify(&json).unwrap();
+    // let json_str = js_sys::JSON::stringify(&json).unwrap();
     // log(&format!("Raw JSON response: {}", json_str));
     Ok(json)
 }
