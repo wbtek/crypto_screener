@@ -21,8 +21,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-mod modules;
-
-pub use modules::http;
-pub use modules::json;
+pub mod http;
+pub mod json;
 
