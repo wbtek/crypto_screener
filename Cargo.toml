@@ -25,6 +25,9 @@
 name = "crypto_screener"
 version = "0.1.0"
 edition = "2021"
+description = "A cryptocurrency screener application."
+repository = "https://github.com/wbtek/crypto_screener"
+license = "MIT"
 
 [lib]
 crate-type = ["cdylib"]
@@ -32,8 +35,19 @@ crate-type = ["cdylib"]
 [dependencies]
 wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
-web-sys = { version = "0.3", features = ["Window", "Request", "Response", "RequestInit", "RequestMode", "Headers"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 serde-wasm-bindgen = "0.2"
 js-sys = "0.3"
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+    "Window",
+    "Request",
+    "Response",
+    "RequestInit",
+    "RequestMode",
+    "Headers"
+]
+

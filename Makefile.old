@@ -22,25 +22,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-WASM_PACK_BUILD := wasm-pack build --target web
-
-# OUTPUT_DIR can point to a symbolic link to a served location
-# Output structure in my case is:
-# ./web/index.html
-# ./web/pkg/OtherStuff
-OUTPUT_DIR := ./web
-
-all: build install
-
 build:
-	$(WASM_PACK_BUILD)
+	wasm-pack build --target web
 
 install: build
-	cp static/index.html $(OUTPUT_DIR)/
-	cp pkg/* $(OUTPUT_DIR)/pkg/
-
-clean:
-	rm -f pkg/*
-
-.PHONY: all build install clean
-
+	cp static/index.html web/
+	cp pkg/crypto_screener.js web/pkg/
+	cp pkg/crypto_screener_bg.wasm web/pkg/
