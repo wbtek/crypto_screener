@@ -43,25 +43,25 @@ struct CoinData {
     symbol: String,
     name: String,
     nameid: String,
-    #[serde(deserialize_with = "string_or_number")]
+    #[serde(deserialize_with = "string_number_float")]
     rank: String,
-    #[serde(deserialize_with = "string_or_float")]
+    #[serde(deserialize_with = "string_number_float")]
     price_usd: String,
-    #[serde(deserialize_with = "string_or_float")]
+    #[serde(deserialize_with = "string_number_float")]
     percent_change_1h: String,
-    #[serde(deserialize_with = "string_or_float")]
+    #[serde(deserialize_with = "string_number_float")]
     percent_change_24h: String,
-    #[serde(deserialize_with = "string_or_float")]
+    #[serde(deserialize_with = "string_number_float")]
     percent_change_7d: String,
-    #[serde(deserialize_with = "string_or_float")]
+    #[serde(deserialize_with = "string_number_float")]
     market_cap_usd: String,
-    #[serde(deserialize_with = "string_or_float")]
+    #[serde(deserialize_with = "string_number_float")]
     volume24: String,
-    #[serde(deserialize_with = "string_or_float")]
+    #[serde(deserialize_with = "string_number_float")]
     volume24a: String,
-    #[serde(deserialize_with = "string_or_float")]
+    #[serde(deserialize_with = "string_number_float")]
     csupply: String,
-    #[serde(deserialize_with = "string_or_float")]
+    #[serde(deserialize_with = "string_number_float")]
     tsupply: String,
     msupply: Option<String>,
 }
