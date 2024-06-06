@@ -1,29 +1,7 @@
-// MIT License
-//
-// Copyright (c) 2024 - WBTek: Greg Slocum
-// Division of WhiteBear Family, Inc.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-
 use yew::prelude::*;
 use crate::modules::json::CryptoData;
 use crate::modules::sort::sort_data;
+use crate::modules::but::{HeaderButton, SortOrder};
 use wasm_bindgen::prelude::*;
 
 struct Model {
@@ -37,6 +15,31 @@ pub enum Msg {
     FetchData,
     SetData(Result<Vec<CryptoData>, reqwest::Error>),
     SortBy(String),
+}
+
+impl Model {
+    fn sort_order(&self, column: &str) -> SortOrder {
+        if let Some(ref sort_by) = self.sort_by {
+            if sort_by == column {
+                if self.sort_asc {
+                    return SortOrder::Ascending;
+                } else {
+                    return SortOrder::Descending;
+                }
+            }
+        }
+        SortOrder::None
+    }
+
+    fn handle_sort(&mut self, column: String) {
+        if self.sort_by.as_ref() == Some(&column) {
+            self.sort_asc = !self.sort_asc;
+        } else {
+            self.sort_by = Some(column);
+            self.sort_asc = true;
+        }
+        sort_data(&mut self.data, &self.sort_by, self.sort_asc);
+    }
 }
 
 impl Component for Model {
@@ -72,13 +75,7 @@ impl Component for Model {
                 true
             }
             Msg::SortBy(column) => {
-                if self.sort_by.as_ref() == Some(&column) {
-                    self.sort_asc = !self.sort_asc;
-                } else {
-                    self.sort_by = Some(column);
-                    self.sort_asc = true;
-                }
-                sort_data(&mut self.data, &self.sort_by, self.sort_asc);
+                self.handle_sort(column);
                 true
             }
         }
@@ -99,13 +96,27 @@ impl Component for Model {
                 <table>
                     <thead>
                         <tr>
-                            <th style="text-align: left;" onclick={link.callback(|_| Msg::SortBy("symbol".to_string()))}>{ "Symbol" }</th>
-                            <th style="text-align: left;" onclick={link.callback(|_| Msg::SortBy("name".to_string()))}>{ "Name" }</th>
-                            <th style="text-align: right;" onclick={link.callback(|_| Msg::SortBy("price_usd".to_string()))}>{ "Price (USD)" }</th>
-                            <th style="text-align: right;" onclick={link.callback(|_| Msg::SortBy("percent_change_1h".to_string()))}>{ "1h %" }</th>
-                            <th style="text-align: right;" onclick={link.callback(|_| Msg::SortBy("percent_change_24h".to_string()))}>{ "24h %" }</th>
-                            <th style="text-align: right;" onclick={link.callback(|_| Msg::SortBy("percent_change_7d".to_string()))}>{ "7d %" }</th>
-                            <th style="text-align: right;" onclick={link.callback(|_| Msg::SortBy("volume24".to_string()))}>{ "Volume ($)" }</th>
+                            <HeaderButton label={"Symbol".to_string()}
+                               sort_order={self.sort_order("symbol")}
+                                  onclick={link.callback(|_| Msg::SortBy("symbol".to_string()))} />
+                            <HeaderButton label={"Name".to_string()}
+                               sort_order={self.sort_order("name")}
+                                  onclick={link.callback(|_| Msg::SortBy("name".to_string()))} />
+                            <HeaderButton label={"Price (USD)".to_string()}
+                               sort_order={self.sort_order("price_usd")}
+                                  onclick={link.callback(|_| Msg::SortBy("price_usd".to_string()))} />
+                            <HeaderButton label={"1h %".to_string()}
+                               sort_order={self.sort_order("percent_change_1h")}
+                                  onclick={link.callback(|_| Msg::SortBy("percent_change_1h".to_string()))} />
+                            <HeaderButton label={"24h %".to_string()}
+                               sort_order={self.sort_order("percent_change_24h")}
+                                  onclick={link.callback(|_| Msg::SortBy("percent_change_24h".to_string()))} />
+                            <HeaderButton label={"7d %".to_string()}
+                               sort_order={self.sort_order("percent_change_7d")}
+                                  onclick={link.callback(|_| Msg::SortBy("percent_change_7d".to_string()))} />
+                            <HeaderButton label={"Volume ($)".to_string()}
+                               sort_order={self.sort_order("volume24")}
+                                  onclick={link.callback(|_| Msg::SortBy("volume24".to_string()))} />
                         </tr>
                         <tr>
                             <th colspan="7" style="text-align: left;">{ underscore_line.clone() }</th>

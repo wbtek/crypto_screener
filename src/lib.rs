@@ -23,6 +23,7 @@
 
 mod modules;
 
+pub use modules::but;
 pub use modules::http;
 pub use modules::json;
 pub use modules::sort;
