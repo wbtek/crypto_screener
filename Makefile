@@ -35,7 +35,7 @@ build:
 	$(WASM_PACK_BUILD)
 
 install: build
-	cp static/index.html $(OUTPUT_DIR)/
+	cp static/* $(OUTPUT_DIR)/
 	cp pkg/* $(OUTPUT_DIR)/pkg/
 
 clean:

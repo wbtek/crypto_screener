@@ -28,17 +28,15 @@ SOFTWARE.
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Screener</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="app"></div>
+    <div id="root"></div>
     <script type="module">
         import init, { run_app } from './pkg/crypto_screener.js';
-        async function main() {
-            await init();
-            run_app();
-        }
-        main();
+        init().then(run_app);
     </script>
 </body>
 </html>

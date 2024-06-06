@@ -39,11 +39,19 @@ impl SortOrder {
         }
     }
 
-    pub fn color(&self) -> &'static str {
-        match self {
-            SortOrder::None => "black",
-            SortOrder::Ascending => "green",
-            SortOrder::Descending => "red",
+    pub fn class(&self, is_numeric: bool) -> &'static str {
+        if is_numeric {
+            match self {
+                SortOrder::None => "",
+                SortOrder::Ascending => "descending",  // Reversed for numeric
+                SortOrder::Descending => "ascending",  // Reversed for numeric
+            }
+        } else {
+            match self {
+                SortOrder::None => "",
+                SortOrder::Ascending => "ascending",
+                SortOrder::Descending => "descending",
+            }
         }
     }
 }
@@ -52,16 +60,17 @@ impl SortOrder {
 pub struct HeaderProps {
     pub label: String,
     pub sort_order: SortOrder,
+    pub is_numeric: bool,
     pub onclick: Callback<MouseEvent>,
 }
 
 #[function_component(HeaderButton)]
 pub fn header_button(props: &HeaderProps) -> Html {
-    let HeaderProps { label, sort_order, onclick } = props.clone();
-    let style = format!("color: {}", sort_order.color());
+    let HeaderProps { label, sort_order, is_numeric, onclick } = props.clone();
+    let class = format!("header-button {}", sort_order.class(is_numeric));
 
     html! {
-        <th style={style} onclick={onclick}>{ label }</th>
+        <th class={class} onclick={onclick}>{ label }</th>
     }
 }
 
