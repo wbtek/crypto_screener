@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <!--
 MIT License
 
@@ -27,29 +28,17 @@ SOFTWARE.
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Screener</title>
 </head>
 <body>
-    <h1>Crypto Screener</h1>
-    <pre id="output"></pre>
-    
+    <div id="app"></div>
     <script type="module">
-        import init, { fetch_data, display_data } from './pkg/crypto_screener.js';
-
-        async function run() {
+        import init, { run_app } from './pkg/crypto_screener.js';
+        async function main() {
             await init();
-            const data = await fetch_data('https://api.coinlore.net/api/tickers/');
-            display_data(data);
+            run_app();
         }
-
-        // Define the log function
-        window.log = (message) => {
-            const output = document.getElementById('output');
-            output.textContent += message + '\n';
-        };
-
-        run();
+        main();
     </script>
 </body>
 </html>
