@@ -23,8 +23,8 @@
 
 use yew::prelude::*;
 use crate::modules::json::CryptoData;
+use crate::modules::sort::sort_data;
 use wasm_bindgen::prelude::*;
-use std::cmp::Ordering;
 
 struct Model {
     data: Vec<CryptoData>,
@@ -37,74 +37,6 @@ pub enum Msg {
     FetchData,
     SetData(Result<Vec<CryptoData>, reqwest::Error>),
     SortBy(String),
-}
-
-impl Model {
-    fn sort_data(&mut self) {
-        if let Some(ref sort_by) = self.sort_by {
-            match sort_by.as_str() {
-                "symbol" => self.data.sort_by(Model::compare_symbol),
-                "name" => self.data.sort_by(Model::compare_name),
-                "price_usd" => self.data.sort_by(Model::compare_price_usd),
-                "percent_change_1h" => self.data.sort_by(Model::compare_percent_change_1h),
-                "percent_change_24h" => self.data.sort_by(Model::compare_percent_change_24h),
-                "percent_change_7d" => self.data.sort_by(Model::compare_percent_change_7d),
-                "volume24" => self.data.sort_by(Model::compare_volume24),
-                _ => {},
-            }
-            if !self.sort_asc {
-                self.data.reverse();
-            }
-        }
-    }
-
-    fn compare<T: Ord>(a: &Option<T>, b: &Option<T>) -> Ordering {
-        a.cmp(b)
-    }
-
-    fn compare_f64(a: &Option<String>, b: &Option<String>) -> Ordering {
-        let a_val = a.as_ref().and_then(|s| s.parse::<f64>().ok()).unwrap_or(0.0);
-        let b_val = b.as_ref().and_then(|s| s.parse::<f64>().ok()).unwrap_or(0.0);
-        a_val.partial_cmp(&b_val).unwrap_or(Ordering::Equal)
-    }
-
-    fn compare_percent(a: &Option<String>, b: &Option<String>) -> Ordering {
-        let a_val = a.as_ref().and_then(|s| s.parse::<f64>().ok()).unwrap_or(0.0);
-        let b_val = b.as_ref().and_then(|s| s.parse::<f64>().ok()).unwrap_or(0.0);
-        a_val.partial_cmp(&b_val).unwrap_or(Ordering::Equal)
-    }
-
-    fn compare_f64_opt(a: &Option<f64>, b: &Option<f64>) -> Ordering {
-        a.partial_cmp(b).unwrap_or(Ordering::Equal)
-    }
-
-    fn compare_symbol(a: &CryptoData, b: &CryptoData) -> Ordering {
-        Model::compare(&a.symbol, &b.symbol)
-    }
-
-    fn compare_name(a: &CryptoData, b: &CryptoData) -> Ordering {
-        Model::compare(&a.name, &b.name)
-    }
-
-    fn compare_price_usd(a: &CryptoData, b: &CryptoData) -> Ordering {
-        Model::compare_f64(&a.price_usd, &b.price_usd)
-    }
-
-    fn compare_percent_change_1h(a: &CryptoData, b: &CryptoData) -> Ordering {
-        Model::compare_percent(&a.percent_change_1h, &b.percent_change_1h)
-    }
-
-    fn compare_percent_change_24h(a: &CryptoData, b: &CryptoData) -> Ordering {
-        Model::compare_percent(&a.percent_change_24h, &b.percent_change_24h)
-    }
-
-    fn compare_percent_change_7d(a: &CryptoData, b: &CryptoData) -> Ordering {
-        Model::compare_percent(&a.percent_change_7d, &b.percent_change_7d)
-    }
-
-    fn compare_volume24(a: &CryptoData, b: &CryptoData) -> Ordering {
-        Model::compare_f64_opt(&a.volume24, &b.volume24)
-    }
 }
 
 impl Component for Model {
@@ -131,7 +63,7 @@ impl Component for Model {
                     Ok(data) => {
                         self.data = data;
                         self.error_message = None;
-                        self.sort_data();
+                        sort_data(&mut self.data, &self.sort_by, self.sort_asc);
                     },
                     Err(err) => {
                         self.error_message = Some(format!("Failed to fetch data: {:?}", err));
@@ -146,7 +78,7 @@ impl Component for Model {
                     self.sort_by = Some(column);
                     self.sort_asc = true;
                 }
-                self.sort_data();
+                sort_data(&mut self.data, &self.sort_by, self.sort_asc);
                 true
             }
         }

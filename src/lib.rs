@@ -25,5 +25,6 @@ mod modules;
 
 pub use modules::http;
 pub use modules::json;
+pub use modules::sort;
 pub use modules::ui;
 
