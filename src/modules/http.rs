@@ -28,6 +28,7 @@ use crate::modules::json::CryptoData;
 pub async fn fetch_data() -> Result<Vec<CryptoData>, reqwest::Error> {
     let client = Client::new();
     let res = client
+        // .get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd")
         .get("https://api.coinlore.net/api/tickers/")
         .send()
         .await?
