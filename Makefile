@@ -35,8 +35,11 @@ build:
 	$(WASM_PACK_BUILD)
 
 install: build
-	cp static/* $(OUTPUT_DIR)/
-	cp pkg/* $(OUTPUT_DIR)/pkg/
+	cp static/index.html $(OUTPUT_DIR)/
+	cp static/styles.css $(OUTPUT_DIR)/
+	cp pkg/crypto_screener_bg.wasm $(OUTPUT_DIR)/pkg/
+	cp pkg/crypto_screener.js $(OUTPUT_DIR)/pkg/
+	cp pkg/LICENSE $(OUTPUT_DIR)/pkg/
 
 clean:
 	rm -f pkg/*

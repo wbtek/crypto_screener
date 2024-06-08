@@ -1,3 +1,4 @@
+
 // MIT License
 //
 // Copyright (c) 2024 - WBTek: Greg Slocum
@@ -28,4 +29,17 @@ pub use modules::http;
 pub use modules::json;
 pub use modules::sort;
 pub use modules::ui;
+
+use wasm_bindgen::prelude::*;
+use yew::Renderer;
+use crate::modules::ui::component::Model;
+
+#[wasm_bindgen(start)]
+pub fn run_app() {
+    if console_log::init_with_level(log::Level::Info).is_err() {
+        log::warn!("Logger already initialized.");
+    }
+    log::info!("Starting the Yew application...");
+    Renderer::<Model>::new().render();
+}
 

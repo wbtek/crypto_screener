@@ -1,3 +1,4 @@
+
 // MIT License
 //
 // Copyright (c) 2024 - WBTek: Greg Slocum
@@ -21,28 +22,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use reqwest::Client;
-use serde_json::Value;
 use crate::json::CryptoData;
 
-pub async fn fetch_data() -> Result<Vec<CryptoData>, reqwest::Error> {
-    let client = Client::new();
-    let res = client
-        // .get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd")
-        .get("https://api.coinlore.net/api/tickers/")
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-
-    if let Some(array) = res.get("data").and_then(|d| d.as_array()) {
-        let data: Vec<CryptoData> = array
-            .iter()
-            .filter_map(|item| serde_json::from_value(item.clone()).ok())
-            .collect();
-        Ok(data)
-    } else {
-        Ok(Vec::new())
-    }
+pub enum Msg {
+    FetchData,
+    SetData(Result<Vec<CryptoData>, reqwest::Error>),
+    SortBy(String),
+    ToggleCellSelection(String, String), // Use unique id
 }
 

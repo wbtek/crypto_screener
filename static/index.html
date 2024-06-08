@@ -33,10 +33,10 @@ SOFTWARE.
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="root"></div>
+    <div id="app"></div>
     <script type="module">
-        import init, { run_app } from './pkg/crypto_screener.js';
-        init().then(run_app);
+        import init from './pkg/crypto_screener.js';
+        init();
     </script>
 </body>
 </html>

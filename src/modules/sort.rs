@@ -21,8 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use crate::modules::json::CryptoData;
 use std::cmp::Ordering;
+use crate::json::CryptoData;
 
 pub fn sort_data(data: &mut Vec<CryptoData>, sort_by: &Option<String>, sort_asc: bool) {
     if let Some(ref sort_by) = sort_by {

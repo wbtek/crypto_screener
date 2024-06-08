@@ -1,3 +1,4 @@
+
 // MIT License
 //
 // Copyright (c) 2024 - WBTek: Greg Slocum
@@ -21,28 +22,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use reqwest::Client;
-use serde_json::Value;
-use crate::json::CryptoData;
+use std::collections::HashSet;
 
-pub async fn fetch_data() -> Result<Vec<CryptoData>, reqwest::Error> {
-    let client = Client::new();
-    let res = client
-        // .get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd")
-        .get("https://api.coinlore.net/api/tickers/")
-        .send()
-        .await?
-        .json::<Value>()
-        .await?;
-
-    if let Some(array) = res.get("data").and_then(|d| d.as_array()) {
-        let data: Vec<CryptoData> = array
-            .iter()
-            .filter_map(|item| serde_json::from_value(item.clone()).ok())
-            .collect();
-        Ok(data)
+pub fn toggle_cell_selection(
+    selected_cells: &mut HashSet<(String, String)>,
+    id: String,
+    column: String,
+) {
+    let cell = (id.clone(), column.clone());
+    if selected_cells.contains(&cell) {
+        selected_cells.remove(&cell);
     } else {
-        Ok(Vec::new())
+        selected_cells.insert(cell.clone());
+    }
+}
+
+pub fn cell_style(id: &str, column: &str, selected_cells: &HashSet<(String, String)>) -> String {
+    if selected_cells.contains(&(id.to_string(), column.to_string())) {
+        "background-color: orange;".to_string()
+    } else {
+        "".to_string()
     }
 }
 
