@@ -28,4 +28,5 @@ pub mod headview;
 pub mod implmodel;
 pub mod rowview;
 pub mod utils;
+pub mod drag;
 
