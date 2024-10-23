@@ -21,7 +21,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-WASM_PACK_BUILD := wasm-pack build --target web
+WASM_PACK_DEBUG := wasm-pack build --target web --dev
+WASM_PACK_RELEASE := wasm-pack build --target web --release
 
 # OUTPUT_DIR can point to a symbolic link to a served location
 # Output structure in my case is:
@@ -30,12 +31,15 @@ WASM_PACK_BUILD := wasm-pack build --target web
 OUTPUT_DIR := ./web
 PKG_DIR := $(OUTPUT_DIR)/pkg
 
-all: build install
+all: release install
 
-build:
-	$(WASM_PACK_BUILD)
+debug:
+	$(WASM_PACK_DEBUG)
 
-install: build
+release:
+	$(WASM_PACK_RELEASE)
+
+install:
 	@test -d $(OUTPUT_DIR) || { echo "Error: Create a directory or symbolic link for output at '$(OUTPUT_DIR)'"; exit 1; }
 	@test -d $(PKG_DIR) || mkdir $(PKG_DIR) || { echo "Error: couldn't make '$(PKG_DIR)'"; exit 1; }
 	cp static/index.html $(OUTPUT_DIR)/
