@@ -61,7 +61,7 @@ impl Model {
 
     pub fn cell_style(&self, id: &str, column: &str) -> String {
         if self.selected_cells.contains(&(id.to_string(), column.to_string())) {
-            "background-color: orange;".to_string()
+            "background-color: steelblue;".to_string()
         } else {
             "".to_string()
         }

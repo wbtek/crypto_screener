@@ -39,7 +39,7 @@ pub fn toggle_cell_selection(
 
 pub fn cell_style(id: &str, column: &str, selected_cells: &HashSet<(String, String)>) -> String {
     if selected_cells.contains(&(id.to_string(), column.to_string())) {
-        "background-color: orange;".to_string()
+        "background-color: steelblue;".to_string()
     } else {
         "".to_string()
     }
