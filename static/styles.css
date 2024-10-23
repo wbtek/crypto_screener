@@ -29,6 +29,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f9f9f9;
+    color: #000;
     transition: background-color 0.3s;
 }
 
