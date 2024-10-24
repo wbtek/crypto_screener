@@ -30,7 +30,7 @@ use crate::modules::ui::utils::cell_style;
 pub fn view_rows(ctx: &Context<Model>, model: &Model) -> Html {
     let link = ctx.link();
     html! {
-        { for model.data.iter().enumerate().map(|(_row_index, item)| {
+        { for model.data.iter().map(|item| {
             let id = item.symbol.clone().unwrap_or_default();
             html! {
                 <tr>
