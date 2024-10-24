@@ -24,7 +24,7 @@
 use std::cmp::Ordering;
 use crate::json::CryptoData;
 
-pub fn sort_data(data: &mut Vec<CryptoData>, sort_by: &Option<String>, sort_asc: bool) {
+pub fn sort_data(data: &mut [CryptoData], sort_by: &Option<String>, sort_asc: bool) {
     if let Some(ref sort_by) = sort_by {
         match sort_by.as_str() {
             "symbol" => data.sort_by(compare_symbol),
