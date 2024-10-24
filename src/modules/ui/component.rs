@@ -109,10 +109,12 @@ impl Component for Model {
         let underscore_line = "_".repeat(130);
         html! {
             <div>
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <h1 style="margin: 0;">{ "WBTek Crypto Screener" }</h1>
+                <br />
+                <div style="display: flex; align-items: center;">
+                    <h1 style="margin: 0; margin-right: 30px;">{ "WBTek Crypto Screener" }</h1>
                     <button onclick={ctx.link().callback(|_| Msg::ToggleAbout)}>{ "About" }</button>
                 </div>
+                <br />
 
                 { if self.show_about {
                     html! {
