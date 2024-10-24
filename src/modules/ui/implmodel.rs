@@ -49,22 +49,5 @@ impl Model {
         }
         sort_data(&mut self.data, &self.sort_by, self.sort_asc);
     }
-
-    pub fn toggle_cell_selection(&mut self, id: String, column: String) {
-        let cell = (id.clone(), column.clone());
-        if self.selected_cells.contains(&cell) {
-            self.selected_cells.remove(&cell);
-        } else {
-            self.selected_cells.insert(cell.clone());
-        }
-    }
-
-    pub fn cell_style(&self, id: &str, column: &str) -> String {
-        if self.selected_cells.contains(&(id.to_string(), column.to_string())) {
-            "background-color: steelblue;".to_string()
-        } else {
-            "".to_string()
-        }
-    }
 }
 

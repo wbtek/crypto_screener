@@ -29,6 +29,7 @@ use crate::modules::sort::sort_data;
 use crate::modules::ui::message::Msg;
 use crate::modules::ui::headview::view_header;
 use crate::modules::ui::rowview::view_rows;
+use crate::modules::ui::utils::*;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 static COMPONENT_INIT_COUNT: AtomicUsize = AtomicUsize::new(0);
@@ -92,7 +93,7 @@ impl Component for Model {
                 true
             }
             Msg::ToggleCellSelection(id, column) => {
-                self.toggle_cell_selection(id, column);
+                toggle_cell_selection(&mut self.selected_cells, id, column);
                 true
             }
         }
