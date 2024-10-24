@@ -42,9 +42,11 @@ pub fn sort_data(data: &mut [CryptoData], sort_by: &Option<String>, sort_asc: bo
     }
 }
 
+/*
 fn compare<T: Ord>(a: &Option<T>, b: &Option<T>) -> Ordering {
     a.cmp(b)
 }
+*/
 
 fn compare_f64(a: &Option<String>, b: &Option<String>) -> Ordering {
     let a_val = a.as_ref().and_then(|s| s.parse::<f64>().ok()).unwrap_or(0.0);
@@ -63,11 +65,21 @@ fn compare_f64_opt(a: &Option<f64>, b: &Option<f64>) -> Ordering {
 }
 
 fn compare_symbol(a: &CryptoData, b: &CryptoData) -> Ordering {
-    compare(&a.symbol, &b.symbol)
+    a.symbol.as_ref().map(|s| s
+        .to_lowercase()).unwrap_or_default()
+        .cmp(
+            &b.symbol.as_ref().map(|s| s
+                .to_lowercase()).unwrap_or_default(),
+        )
 }
 
 fn compare_name(a: &CryptoData, b: &CryptoData) -> Ordering {
-    compare(&a.name, &b.name)
+    a.name.as_ref().map(|s| s
+        .to_lowercase()).unwrap_or_default()
+        .cmp(
+            &b.name.as_ref().map(|s| s
+                .to_lowercase()).unwrap_or_default(),
+        )
 }
 
 fn compare_price_usd(a: &CryptoData, b: &CryptoData) -> Ordering {
