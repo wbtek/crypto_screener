@@ -29,5 +29,6 @@ pub enum Msg {
     SetData(Result<Vec<CryptoData>, reqwest::Error>),
     SortBy(String),
     ToggleCellSelection(String, String), // Use unique id
+    ToggleAbout, // Toggle "About" modal
 }
 

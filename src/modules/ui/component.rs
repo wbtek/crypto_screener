@@ -37,6 +37,7 @@ static COMPONENT_INIT_COUNT: AtomicUsize = AtomicUsize::new(0);
 pub struct Model {
     pub data: Vec<CryptoData>,
     pub error_message: Option<String>,
+    pub show_about: bool,  // Track visibility of "About" modal
     pub sort_by: Option<String>,
     pub sort_asc: bool,
     pub selected_cells: HashSet<(String, String)>,
@@ -58,6 +59,7 @@ impl Component for Model {
         Self { 
             data: Vec::new(), 
             error_message: None, 
+            show_about: false,
             sort_by: None, 
             sort_asc: true, 
             selected_cells: HashSet::new(),
@@ -96,6 +98,10 @@ impl Component for Model {
                 toggle_cell_selection(&mut self.selected_cells, id, column);
                 true
             }
+            Msg::ToggleAbout => {
+                self.show_about = !self.show_about; // Toggle visibility
+                true
+            }
         }
     }
 
@@ -103,7 +109,58 @@ impl Component for Model {
         let underscore_line = "_".repeat(130);
         html! {
             <div>
-                <h1>{ "Crypto Screener" }</h1>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <h1 style="margin: 0;">{ "WBTek Crypto Screener" }</h1>
+                    <button onclick={ctx.link().callback(|_| Msg::ToggleAbout)}>{ "About" }</button>
+                </div>
+
+                { if self.show_about {
+                    html! {
+                        <div class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick={ctx.link().callback(|_| Msg::ToggleAbout)}>{ "×" }</span>
+                                <h2> { "About WBTek Crypto Screener" } </h2>
+                                <p>
+                                    { "Click on header buttons to sort data, and click on individual cells to highlight them." } <br />
+                                    <br />
+                                    { "Built with Rust and Yew, compiled to WebAssembly (WASM)." } <br />
+                                    <br />
+                                    <a href="https://github.com/wbtek/crypto_screener"
+                                        target="_blank">{ "Source: https://github.com/wbtek/crypto_screener" }
+                                    </a>
+                                    <br />
+                                    <hr />
+                                    <br />
+                                    { "MIT License" } <br />
+                                    <br />
+                                    { "Copyright (c) 2024 - WBTek: Greg Slocum" } <br />
+                                    { "Division of WhiteBear Family, Inc." } <br />
+                                    <br />
+                                    { "Permission is hereby granted, free of charge, to any person obtaining a copy
+                                    of this software and associated documentation files (the \"Software\"), to deal
+                                    in the Software without restriction, including without limitation the rights
+                                    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                                    copies of the Software, and to permit persons to whom the Software is
+                                    furnished to do so, subject to the following conditions:" } <br />
+                                    <br />
+                                    { "The above copyright notice and this permission notice shall be included in all
+                                    copies or substantial portions of the Software." } <br />
+                                    <br />
+                                    { "THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                                    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                                    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                                    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                                    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                                    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                                    SOFTWARE." } <br />
+                                </p>
+                            </div>
+                        </div>
+                    }
+                } else {
+                    html! {}
+                }}
+     
                 { if let Some(error) = &self.error_message {
                     html! { <p style="color: red;">{ error }</p> }
                 } else {
