@@ -35,43 +35,36 @@ pub fn view_header(ctx: &Context<Model>, underscore_line: &str, model: &Model) -
                 <HeaderButton
                     label={"Symbol".to_string()}
                     sort_order={model.sort_order("symbol")}
-                    is_numeric={false}
                     onclick={link.callback(|_| Msg::SortBy("symbol".to_string()))}
                 />
                 <HeaderButton
                     label={"Name".to_string()}
                     sort_order={model.sort_order("name")}
-                    is_numeric={false}
                     onclick={link.callback(|_| Msg::SortBy("name".to_string()))}
                 />
                 <HeaderButton
                     label={"Price (USD)".to_string()}
                     sort_order={model.sort_order("price_usd")}
-                    is_numeric={true}
                     onclick={link.callback(|_| Msg::SortBy("price_usd".to_string()))}
                 />
                 <HeaderButton
                     label={"1h %".to_string()}
                     sort_order={model.sort_order("percent_change_1h")}
-                    is_numeric={true}
                     onclick={link.callback(|_| Msg::SortBy("percent_change_1h".to_string()))}
                 />
                 <HeaderButton
                     label={"24h %".to_string()}
                     sort_order={model.sort_order("percent_change_24h")}
-                    is_numeric={true}
                     onclick={link.callback(|_| Msg::SortBy("percent_change_24h".to_string()))}
                 />
                 <HeaderButton
                     label={"7d %".to_string()}
                     sort_order={model.sort_order("percent_change_7d")}
-                    is_numeric={true}
                     onclick={link.callback(|_| Msg::SortBy("percent_change_7d".to_string()))}
                 />
                 <HeaderButton
                     label={"Volume ($)".to_string()}
                     sort_order={model.sort_order("volume24")}
-                    is_numeric={true}
                     onclick={link.callback(|_| Msg::SortBy("volume24".to_string()))}
                 />
             </tr>

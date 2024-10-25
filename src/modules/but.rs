@@ -30,28 +30,13 @@ pub enum SortOrder {
     Descending,
 }
 
+// Make string to match CSS to set button color
 impl SortOrder {
-    pub fn toggle(&self) -> SortOrder {
+    pub fn class(&self) -> &'static str {
         match self {
-            SortOrder::None => SortOrder::Ascending,
-            SortOrder::Ascending => SortOrder::Descending,
-            SortOrder::Descending => SortOrder::Ascending,
-        }
-    }
-
-    pub fn class(&self, is_numeric: bool) -> &'static str {
-        if is_numeric {
-            match self {
-                SortOrder::None => "",
-                SortOrder::Ascending => "descending",  // Reversed for numeric
-                SortOrder::Descending => "ascending",  // Reversed for numeric
-            }
-        } else {
-            match self {
-                SortOrder::None => "",
-                SortOrder::Ascending => "ascending",
-                SortOrder::Descending => "descending",
-            }
+            SortOrder::None => "",
+            SortOrder::Ascending => "ascending",
+            SortOrder::Descending => "descending",
         }
     }
 }
@@ -60,14 +45,13 @@ impl SortOrder {
 pub struct HeaderProps {
     pub label: String,
     pub sort_order: SortOrder,
-    pub is_numeric: bool,
     pub onclick: Callback<MouseEvent>,
 }
 
 #[function_component(HeaderButton)]
 pub fn header_button(props: &HeaderProps) -> Html {
-    let HeaderProps { label, sort_order, is_numeric, onclick } = props.clone();
-    let class = format!("header-button {}", sort_order.class(is_numeric));
+    let HeaderProps { label, sort_order,  onclick } = props.clone();
+    let class = format!("header-button {}", sort_order.class());
 
     html! {
         <th class={class} onclick={onclick}>{ label }</th>

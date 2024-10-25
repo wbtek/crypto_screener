@@ -60,8 +60,8 @@ impl Component for Model {
             data: Vec::new(), 
             error_message: None, 
             show_about: false,
-            sort_by: None, 
-            sort_asc: true, 
+            sort_by: Some("volume24".to_string()), // Sort this out of the gate
+            sort_asc: false, // Descending
             selected_cells: HashSet::new(),
         }
     }
@@ -91,7 +91,13 @@ impl Component for Model {
                 true
             }
             Msg::SortBy(column) => {
-                self.handle_sort(column);
+                if self.sort_by.as_ref() == Some(&column) {
+                    self.sort_asc = !self.sort_asc;
+                } else {
+                    self.sort_by = Some(column.clone());
+                    self.sort_asc = column.eq("symbol") || column.eq("name"); // Sort the rest descending
+                }
+                sort_data(&mut self.data, &self.sort_by, self.sort_asc);
                 true
             }
             Msg::ToggleCellSelection(id, column) => {

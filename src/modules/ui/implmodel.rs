@@ -22,7 +22,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use crate::modules::sort::sort_data;
 use crate::modules::but::SortOrder;
 use crate::ui::component::Model;
 
@@ -38,16 +37,6 @@ impl Model {
             }
         }
         SortOrder::None
-    }
-
-    pub fn handle_sort(&mut self, column: String) {
-        if self.sort_by.as_ref() == Some(&column) {
-            self.sort_asc = !self.sort_asc;
-        } else {
-            self.sort_by = Some(column);
-            self.sort_asc = true;
-        }
-        sort_data(&mut self.data, &self.sort_by, self.sort_asc);
     }
 }
 
