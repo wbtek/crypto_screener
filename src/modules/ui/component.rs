@@ -22,15 +22,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use yew::prelude::*;
 use std::collections::HashSet;
-use crate::modules::json::CryptoData;
-use crate::modules::sort::sort_data;
-use crate::modules::ui::message::Msg;
-use crate::modules::ui::headview::view_header;
-use crate::modules::ui::rowview::view_rows;
-use crate::modules::ui::utils::*;
 use std::sync::atomic::{AtomicUsize, Ordering};
+use yew::prelude::{Component, Context, Html, html};
+use super::super::json::CryptoData;
+use super::super::sort::sort_data;
+use super::message::Msg;
+use super::headview::view_header;
+use super::rowview::view_rows;
+use super::utils::*;
 
 static COMPONENT_INIT_COUNT: AtomicUsize = AtomicUsize::new(0);
 

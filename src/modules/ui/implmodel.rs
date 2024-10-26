@@ -22,8 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use crate::modules::but::SortOrder;
-use crate::ui::component::Model;
+use super::super::but::SortOrder;
+use super::component::Model;
 
 impl Model {
     pub fn sort_order(&self, column: &str) -> SortOrder {

@@ -22,7 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use yew::prelude::*;
+use yew::prelude::{Properties, Callback, MouseEvent, function_component, Html, html};
 
 #[derive(Clone, PartialEq)]
 pub enum SortOrder {

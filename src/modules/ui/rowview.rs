@@ -22,10 +22,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use yew::prelude::*;
-use crate::modules::ui::component::Model;
-use crate::modules::ui::message::Msg;
-use crate::modules::ui::utils::cell_style;
+use yew::prelude::{Context, Html, html};
+use super::component::Model;
+use super::message::Msg;
+use super::utils::cell_style;
 
 pub fn view_rows(ctx: &Context<Model>, model: &Model) -> Html {
     let link = ctx.link();

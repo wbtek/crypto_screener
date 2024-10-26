@@ -22,10 +22,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use yew::prelude::*;
-use crate::modules::but::HeaderButton;
-use crate::modules::ui::component::Model;
-use crate::modules::ui::message::Msg;
+use yew::prelude::{Context, Html, html};
+use super::super::but::HeaderButton;
+use super::component::Model;
+use super::message::Msg;
 
 pub fn view_header(ctx: &Context<Model>, underscore_line: &str, model: &Model) -> Html {
     let link = ctx.link();

@@ -24,7 +24,7 @@
 
 use reqwest::Client;
 use serde_json::Value;
-use crate::json::CryptoData;
+use super::json::CryptoData;
 
 pub async fn fetch_data() -> Result<Vec<CryptoData>, reqwest::Error> {
     let client = Client::new();

@@ -22,17 +22,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-mod modules;
-
-pub use modules::but;
-pub use modules::http;
-pub use modules::json;
-pub use modules::sort;
-pub use modules::ui;
-
-use wasm_bindgen::prelude::*;
 use yew::Renderer;
-use crate::modules::ui::component::Model;
+use wasm_bindgen::prelude::wasm_bindgen;
+
+mod modules;
+use modules::ui::component::Model;
 
 #[wasm_bindgen(start)]
 pub fn run_app() {

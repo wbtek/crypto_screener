@@ -23,9 +23,9 @@
 // SOFTWARE.
 
 pub mod component;
-pub mod message;
-pub mod headview;
-pub mod implmodel;
-pub mod rowview;
-pub mod utils;
+mod message;
+mod headview;
+mod implmodel;
+mod rowview;
+mod utils;
 
