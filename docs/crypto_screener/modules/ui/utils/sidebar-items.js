@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["cell_style","toggle_cell_selection"]};
