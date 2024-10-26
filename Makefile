@@ -1,7 +1,8 @@
-# MIT License
+
+# The MIT License (MIT)
 #
-# Copyright (c) 2024 - WBTek: Greg Slocum
-# Division of WhiteBear Family, Inc.
+# Copyright (c) 2024 Greg Slocum, WBTek
+# a division of WhiteBear Family, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +47,7 @@ install:
 	cp static/styles.css $(OUTPUT_DIR)/
 	cp pkg/crypto_screener_bg.wasm $(OUTPUT_DIR)/pkg/
 	cp pkg/crypto_screener.js $(OUTPUT_DIR)/pkg/
-	cp pkg/LICENSE $(OUTPUT_DIR)/pkg/
+	cp ./LICENSE $(OUTPUT_DIR)/pkg/
 
 clean:
 	rm -f pkg/*

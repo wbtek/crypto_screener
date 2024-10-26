@@ -1,8 +1,8 @@
 
-// MIT License
+// The MIT License (MIT)
 //
-// Copyright (c) 2024 - WBTek: Greg Slocum
-// Division of WhiteBear Family, Inc.
+// Copyright (c) 2024 Greg Slocum, WBTek,
+// a division of WhiteBear Family, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -139,10 +139,10 @@ impl Component for Model {
                                     <br />
                                     <hr />
                                     <br />
-                                    { "MIT License" } <br />
+                                    { "The MIT License (MIT)" } <br />
                                     <br />
-                                    { "Copyright (c) 2024 - WBTek: Greg Slocum" } <br />
-                                    { "Division of WhiteBear Family, Inc." } <br />
+                                    { "Copyright (c) 2024 Greg Slocum, WBTek," } <br />
+                                    { "a division of WhiteBear Family, Inc." } <br />
                                     <br />
                                     { "Permission is hereby granted, free of charge, to any person obtaining a copy
                                     of this software and associated documentation files (the \"Software\"), to deal
