@@ -49,8 +49,23 @@ install:
 	cp pkg/crypto_screener.js $(OUTPUT_DIR)/pkg/
 	cp ./LICENSE $(OUTPUT_DIR)/pkg/
 
+# Clean the target directory
 clean:
 	rm -f pkg/*
+	cargo clean
 
-.PHONY: all build install clean
+# Generate fresh documentation
+doc: clean
+	cargo doc --no-deps --document-private-items
+	# Copy documentation to the desired location, e.g., `docs`
+	rm -rf docs/
+	mkdir -p docs
+	cp -r target/doc/* docs/
+	# GitHub navigation aid
+	ln -s ../index.html docs/index.html
+
+# Shortcut to clean and then generate documentation
+update-doc: clean doc
+
+.PHONY: all build install clean doc
 
