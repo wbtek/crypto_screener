@@ -133,8 +133,9 @@ impl Component for Model {
                                     <br />
                                     { "Built with Rust and Yew, compiled to WebAssembly (WASM)." } <br />
                                     <br />
-                                    <a href="https://github.com/wbtek/crypto_screener"
-                                        target="_blank">{ "Source: https://github.com/wbtek/crypto_screener" }
+                                    { "Source and documentation: " }
+                                        <a href="https://wbtek.github.io"
+                                            target="_blank">{ "https://wbtek.github.io" }
                                     </a>
                                     <br />
                                     <hr />
