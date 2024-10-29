@@ -24,6 +24,7 @@
 
 pub mod component;
 
+mod about;
 mod button;
 mod cryptodata;
 mod headview;
