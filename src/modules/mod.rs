@@ -22,8 +22,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-pub mod ui;
-mod but;
-mod http;
-mod json;
+pub mod component;
+
+mod button;
+mod cryptodata;
+mod headview;
+mod fetch;
+mod implmodel;
+mod message;
+mod rowview;
 mod sort;
+mod utils;
+

@@ -22,10 +22,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-pub mod component;
-mod message;
-mod headview;
-mod implmodel;
-mod rowview;
-mod utils;
+use super::button::SortOrder;
+use super::component::Model;
+
+impl Model {
+    pub fn sort_order(&self, column: &str) -> SortOrder {
+        if let Some(ref sort_by) = self.sort_by {
+            if sort_by == column {
+                if self.sort_asc {
+                    return SortOrder::Ascending;
+                } else {
+                    return SortOrder::Descending;
+                }
+            }
+        }
+        SortOrder::None
+    }
+}
 

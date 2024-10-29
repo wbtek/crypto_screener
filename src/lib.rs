@@ -26,7 +26,7 @@ use yew::Renderer;
 use wasm_bindgen::prelude::wasm_bindgen;
 
 mod modules;
-use modules::ui::component::Model;
+use modules::component::Model;
 
 #[wasm_bindgen(start)]
 pub fn run_app() {

@@ -25,12 +25,13 @@
 use std::collections::HashSet;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use yew::prelude::{Component, Context, Html, html};
-use super::super::json::CryptoData;
-use super::super::sort::sort_data;
-use super::message::Msg;
+use super::cryptodata::CryptoData;
+use super::fetch::fetch_data;
 use super::headview::view_header;
+use super::sort::sort_data;
+use super::message::Msg;
 use super::rowview::view_rows;
-use super::utils::*;
+use super::utils::toggle_cell_selection;
 
 static COMPONENT_INIT_COUNT: AtomicUsize = AtomicUsize::new(0);
 
@@ -72,7 +73,7 @@ impl Component for Model {
                 log::info!("Fetching data"); // Log when fetching data
                 let link = ctx.link().clone();
                 wasm_bindgen_futures::spawn_local(async move {
-                    let data = crate::modules::http::fetch_data().await;
+                    let data = fetch_data().await;
                     link.send_message(Msg::SetData(data));
                 });
                 false

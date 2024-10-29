@@ -22,7 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use super::super::json::CryptoData;
+use super::cryptodata::CryptoData;
 
 pub enum Msg {
     FetchData,

@@ -23,7 +23,7 @@
 // SOFTWARE.
 
 use yew::prelude::{Context, Html, html};
-use super::super::but::HeaderButton;
+use super::button::HeaderButton;
 use super::component::Model;
 use super::message::Msg;
 

@@ -23,7 +23,7 @@
 // SOFTWARE.
 
 use std::cmp::Ordering;
-use super::json::CryptoData;
+use super::cryptodata::CryptoData;
 
 pub fn sort_data(data: &mut [CryptoData], sort_by: &Option<String>, sort_asc: bool) {
     if let Some(ref sort_by) = sort_by {
