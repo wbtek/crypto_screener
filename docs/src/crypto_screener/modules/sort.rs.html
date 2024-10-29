@@ -128,7 +128,7 @@
 // SOFTWARE.
 
 </span><span class="kw">use </span>std::cmp::Ordering;
-<span class="kw">use </span><span class="kw">super</span>::json::CryptoData;
+<span class="kw">use </span><span class="kw">super</span>::cryptodata::CryptoData;
 
 <span class="kw">pub fn </span>sort_data(data: <span class="kw-2">&amp;mut </span>[CryptoData], sort_by: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;, sort_asc: bool) {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>sort_by) = sort_by {

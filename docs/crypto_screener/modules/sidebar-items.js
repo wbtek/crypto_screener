@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["but","http","json","sort","ui"]};
+window.SIDEBAR_ITEMS = {"mod":["about","button","component","cryptodata","fetch","headview","implmodel","message","rowview","sort","utils"]};

@@ -1,3 +1,3 @@
-var srcIndex = new Map(JSON.parse('[["crypto_screener",["",[["modules",[["ui",[],["component.rs","headview.rs","implmodel.rs","message.rs","mod.rs","rowview.rs","utils.rs"]]],["but.rs","http.rs","json.rs","mod.rs","sort.rs"]]],["lib.rs"]]]]'));
+var srcIndex = new Map(JSON.parse('[["crypto_screener",["",[["modules",[],["about.rs","button.rs","component.rs","cryptodata.rs","fetch.rs","headview.rs","implmodel.rs","message.rs","mod.rs","rowview.rs","sort.rs","utils.rs"]]],["lib.rs"]]]]'));
 createSrcSidebar();
-//{"start":36,"fragment_lengths":[203]}
+//{"start":36,"fragment_lengths":[204]}
