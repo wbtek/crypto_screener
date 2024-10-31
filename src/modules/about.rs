@@ -98,11 +98,11 @@ pub fn about_view(ctx: &Context<Model>) -> Html {
         <div class="modal">
             <div class="modal-content">
                 <span class="close" onclick={ctx.link().callback(|_| Msg::ToggleAbout)}>{ "\u{00D7}" }</span> // multiply char
-                <h2> { "About WBTek Crypto Screener" } </h2>
+                <h2> { "WBTek Crypto Screener" } </h2>
                 <p>
-                    { "Click on header buttons to sort data, and click on individual cells to highlight them." } <br />
+                    { "A cryptocurrency analysis tool built with Rust and Yew, compiled to WebAssembly (WASM)." } <br />
                     <br />
-                    { "Built with Rust and Yew, compiled to WebAssembly (WASM)." } <br />
+                    { "Click on header buttons to sort and resort data, and click on individual cells to highlight them." } <br />
                     <br />
                     { "Source and documentation: " }
                         <a href="https://wbtek.github.io"
@@ -143,7 +143,7 @@ pub fn about_view(ctx: &Context<Model>) -> Html {
                     <br />
                 </p>
                 // Identification marker
-                <p style="font-size: 0.7em;">{ "(0078)" }</p>
+                <p style="font-size: 0.8em;">{ format!("Version {}", env!("CARGO_PKG_VERSION")) }</p>
             </div>
         </div>
     }
