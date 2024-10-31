@@ -24,14 +24,14 @@
 
 [package]
 name = "crypto_screener"
-version = "0.1.79"
+version = "0.1.80"
 edition = "2021"
 description = "A cryptocurrency screener application."
 repository = "https://github.com/wbtek/crypto_screener"
 license = "MIT"
 
 [profile.release]
-opt-level = 'z'  # Optimize for size
+opt-level = 3    # Optimize for performance
 lto = true       # Enable Link Time Optimization
 
 [profile.dev]
