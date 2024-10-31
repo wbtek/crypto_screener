@@ -89,6 +89,44 @@
 <a href="#89" id="89">89</a>
 <a href="#90" id="90">90</a>
 <a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
 </pre></div><pre class="rust"><code>
 <span class="comment">// The MIT License (MIT)
 //
@@ -113,12 +151,51 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+</span><span class="doccomment">//! # Row View Module
+//!
+//! This module provides functionality for rendering rows in the cryptocurrency table,
+//! displaying data for each cryptocurrency in a sortable and selectable format. Each
+//! cell is clickable and allows users to highlight specific cells for tracking.
+
 </span><span class="kw">use </span>yew::prelude::{Context, Html, html};
 <span class="kw">use </span><span class="kw">super</span>::component::Model;
 <span class="kw">use </span><span class="kw">super</span>::message::Msg;
 <span class="kw">use </span><span class="kw">super</span>::utils::cell_style;
 
-<span class="kw">pub fn </span>view_rows(ctx: <span class="kw-2">&amp;</span>Context&lt;Model&gt;, model: <span class="kw-2">&amp;</span>Model) -&gt; Html {
+<span class="doccomment">/// Renders the rows of the cryptocurrency data table.
+///
+/// The `view_rows` function iterates over each entry in `model.data`, creating a `&lt;tr&gt;` 
+/// element with individual `&lt;td&gt;` cells for various cryptocurrency attributes, such as 
+/// symbol, name, price, percent changes, and volume. Each cell includes inline styling
+/// based on its selection state and can be clicked to toggle its selection.
+///
+/// # Parameters
+///
+/// - `ctx`: The Yew [`Context`] for the `Model` component, allowing messages to be sent
+///   in response to user interactions.
+/// - `model`: A reference to the main application `Model`, which holds data and selection states.
+///
+/// # Returns
+///
+/// Returns an [`Html`] fragment representing the rendered rows.
+///
+/// # Cell Interactivity
+///
+/// Each `&lt;td&gt;` cell is rendered with the following features:
+/// - **Dynamic Style**: The cell's style is determined by `cell_style`, which highlights
+///   the cell based on its selection status in `model.selected_cells`.
+/// - **Click Event**: Clicking a cell sends a `Msg::ToggleCellSelection` message with the
+///   cell's unique identifier (column name and cryptocurrency symbol), allowing users to
+///   toggle the cell’s selection state.
+///
+/// # Example
+///
+/// This function is used within the table body to render rows based on `model.data`:
+///
+/// ```rust
+/// let rows = view_rows(ctx, model);
+/// ```
+</span><span class="kw">pub fn </span>view_rows(ctx: <span class="kw-2">&amp;</span>Context&lt;Model&gt;, model: <span class="kw-2">&amp;</span>Model) -&gt; Html {
     <span class="kw">let </span>link = ctx.link();
     <span class="macro">html!</span> {
         { <span class="kw">for </span>model.data.iter().map(|item| {
@@ -179,5 +256,4 @@
         }) }
     }
 }
-
 </code></pre></div></section></main></body></html>

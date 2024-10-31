@@ -103,6 +103,56 @@
 <a href="#103" id="103">103</a>
 <a href="#104" id="104">104</a>
 <a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
 </pre></div><pre class="rust"><code>
 <span class="comment">// The MIT License (MIT)
 //
@@ -127,10 +177,37 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+</span><span class="doccomment">//! # Sorting Module
+//!
+//! This module provides sorting functionality for the cryptocurrency data in the WBTek Crypto Screener
+//! application. The main function, `sort_data`, allows sorting of `CryptoData` entries based on a selected
+//! column in either ascending or descending order. The module includes specific comparison functions
+//! to handle different data types and ensure consistent ordering across various fields.
+
 </span><span class="kw">use </span>std::cmp::Ordering;
 <span class="kw">use </span><span class="kw">super</span>::cryptodata::CryptoData;
 
-<span class="kw">pub fn </span>sort_data(data: <span class="kw-2">&amp;mut </span>[CryptoData], sort_by: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;, sort_asc: bool) {
+<span class="doccomment">/// Sorts the `data` array of `CryptoData` items by the specified column and order.
+///
+/// This function uses a match statement to select the appropriate comparison function
+/// based on the `sort_by` field. Each comparison function handles a specific field in `CryptoData`,
+/// such as `symbol`, `name`, `price_usd`, etc. After sorting, the data can be reversed
+/// if `sort_asc` is set to `false`, making the order descending.
+///
+/// # Parameters
+///
+/// - `data`: A mutable slice of `CryptoData` items to be sorted.
+/// - `sort_by`: An optional `String` specifying the field to sort by (e.g., "symbol" or "price_usd").
+/// - `sort_asc`: A boolean that determines the sort order:
+///   - `true` for ascending order.
+///   - `false` for descending order.
+///
+/// # Example
+///
+/// ```rust
+/// sort_data(&amp;mut data, &amp;Some("price_usd".to_string()), true);
+/// ```
+</span><span class="kw">pub fn </span>sort_data(data: <span class="kw-2">&amp;mut </span>[CryptoData], sort_by: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;, sort_asc: bool) {
     <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>sort_by) = sort_by {
         <span class="kw">match </span>sort_by.as_str() {
             <span class="string">"symbol" </span>=&gt; data.sort_by(compare_symbol),
@@ -148,29 +225,35 @@
     }
 }
 
-<span class="comment">/*
-fn compare&lt;T: Ord&gt;(a: &amp;Option&lt;T&gt;, b: &amp;Option&lt;T&gt;) -&gt; Ordering {
-    a.cmp(b)
-}
-*/
-
+<span class="doccomment">/// Compares two optional `String` values as `f64`, used for numeric sorting (e.g., price).
+///
+/// - Returns `Ordering::Equal` if either value is `None` or cannot be parsed.
 </span><span class="kw">fn </span>compare_f64(a: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;, b: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;) -&gt; Ordering {
     <span class="kw">let </span>a_val = a.as_ref().and_then(|s| s.parse::&lt;f64&gt;().ok()).unwrap_or(<span class="number">0.0</span>);
     <span class="kw">let </span>b_val = b.as_ref().and_then(|s| s.parse::&lt;f64&gt;().ok()).unwrap_or(<span class="number">0.0</span>);
     a_val.partial_cmp(<span class="kw-2">&amp;</span>b_val).unwrap_or(Ordering::Equal)
 }
 
-<span class="kw">fn </span>compare_percent(a: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;, b: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;) -&gt; Ordering {
+<span class="doccomment">/// Compares two optional `String` values as percentages (parsed as `f64`).
+///
+/// - Returns `Ordering::Equal` if parsing fails for either value.
+</span><span class="kw">fn </span>compare_percent(a: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;, b: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;String&gt;) -&gt; Ordering {
     <span class="kw">let </span>a_val = a.as_ref().and_then(|s| s.parse::&lt;f64&gt;().ok()).unwrap_or(<span class="number">0.0</span>);
     <span class="kw">let </span>b_val = b.as_ref().and_then(|s| s.parse::&lt;f64&gt;().ok()).unwrap_or(<span class="number">0.0</span>);
     a_val.partial_cmp(<span class="kw-2">&amp;</span>b_val).unwrap_or(Ordering::Equal)
 }
 
-<span class="kw">fn </span>compare_f64_opt(a: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;f64&gt;, b: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;f64&gt;) -&gt; Ordering {
+<span class="doccomment">/// Compares two optional `f64` values, used for numeric sorting (e.g., volume).
+///
+/// - Returns `Ordering::Equal` if either value is `None`.
+</span><span class="kw">fn </span>compare_f64_opt(a: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;f64&gt;, b: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;f64&gt;) -&gt; Ordering {
     a.partial_cmp(b).unwrap_or(Ordering::Equal)
 }
 
-<span class="kw">fn </span>compare_symbol(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
+<span class="doccomment">/// Compares two `CryptoData` items by symbol (case-insensitive).
+///
+/// Returns an ordering based on the lexicographic order of `symbol`.
+</span><span class="kw">fn </span>compare_symbol(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
     a.symbol.as_ref().map(|s| s
         .to_lowercase()).unwrap_or_default()
         .cmp(
@@ -179,7 +262,10 @@ fn compare&lt;T: Ord&gt;(a: &amp;Option&lt;T&gt;, b: &amp;Option&lt;T&gt;) -&gt;
         )
 }
 
-<span class="kw">fn </span>compare_name(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
+<span class="doccomment">/// Compares two `CryptoData` items by name (case-insensitive).
+///
+/// Returns an ordering based on the lexicographic order of `name`.
+</span><span class="kw">fn </span>compare_name(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
     a.name.as_ref().map(|s| s
         .to_lowercase()).unwrap_or_default()
         .cmp(
@@ -188,24 +274,38 @@ fn compare&lt;T: Ord&gt;(a: &amp;Option&lt;T&gt;, b: &amp;Option&lt;T&gt;) -&gt;
         )
 }
 
-<span class="kw">fn </span>compare_price_usd(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
+<span class="doccomment">/// Compares two `CryptoData` items by price in USD.
+///
+/// Uses `compare_f64` to handle the optional `price_usd` field.
+</span><span class="kw">fn </span>compare_price_usd(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
     compare_f64(<span class="kw-2">&amp;</span>a.price_usd, <span class="kw-2">&amp;</span>b.price_usd)
 }
 
-<span class="kw">fn </span>compare_percent_change_1h(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
+<span class="doccomment">/// Compares two `CryptoData` items by 1-hour percent change.
+///
+/// Uses `compare_percent` for parsing and comparison.
+</span><span class="kw">fn </span>compare_percent_change_1h(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
     compare_percent(<span class="kw-2">&amp;</span>a.percent_change_1h, <span class="kw-2">&amp;</span>b.percent_change_1h)
 }
 
-<span class="kw">fn </span>compare_percent_change_24h(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
+<span class="doccomment">/// Compares two `CryptoData` items by 24-hour percent change.
+///
+/// Uses `compare_percent` for parsing and comparison.
+</span><span class="kw">fn </span>compare_percent_change_24h(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
     compare_percent(<span class="kw-2">&amp;</span>a.percent_change_24h, <span class="kw-2">&amp;</span>b.percent_change_24h)
 }
 
-<span class="kw">fn </span>compare_percent_change_7d(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
+<span class="doccomment">/// Compares two `CryptoData` items by 7-day percent change.
+///
+/// Uses `compare_percent` for parsing and comparison.
+</span><span class="kw">fn </span>compare_percent_change_7d(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
     compare_percent(<span class="kw-2">&amp;</span>a.percent_change_7d, <span class="kw-2">&amp;</span>b.percent_change_7d)
 }
 
-<span class="kw">fn </span>compare_volume24(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
+<span class="doccomment">/// Compares two `CryptoData` items by 24-hour trading volume.
+///
+/// Uses `compare_f64_opt` to handle the optional `volume24` field.
+</span><span class="kw">fn </span>compare_volume24(a: <span class="kw-2">&amp;</span>CryptoData, b: <span class="kw-2">&amp;</span>CryptoData) -&gt; Ordering {
     compare_f64_opt(<span class="kw-2">&amp;</span>a.volume24, <span class="kw-2">&amp;</span>b.volume24)
 }
-
 </code></pre></div></section></main></body></html>

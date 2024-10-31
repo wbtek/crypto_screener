@@ -65,6 +65,71 @@
 <a href="#65" id="65">65</a>
 <a href="#66" id="66">66</a>
 <a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a>
+<a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
 </pre></div><pre class="rust"><code>
 <span class="comment">// The MIT License (MIT)
 //
@@ -89,25 +154,70 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+</span><span class="doccomment">//! # CryptoData Module
+//!
+//! This module defines the `CryptoData` struct, which represents a data record
+//! for a cryptocurrency. It includes fields for various metrics such as price,
+//! percent changes, and trading volume, and provides methods to format and
+//! display these values in a user-friendly way.
+
 </span><span class="kw">use </span>serde::Deserialize;
 
-<span class="attr">#[derive(Deserialize, Debug)]
+<span class="doccomment">/// Represents cryptocurrency data, including name, symbol, price, percent change,
+/// and 24-hour trading volume. This struct is designed to hold data parsed
+/// from a JSON source, with all fields being optional to account for missing values.
+</span><span class="attr">#[derive(Deserialize, Debug)]
 </span><span class="kw">pub struct </span>CryptoData {
-    <span class="kw">pub </span>symbol: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="kw">pub </span>name: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="kw">pub </span>price_usd: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="kw">pub </span>percent_change_1h: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="kw">pub </span>percent_change_24h: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="kw">pub </span>percent_change_7d: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="kw">pub </span>volume24: <span class="prelude-ty">Option</span>&lt;f64&gt;,
+    <span class="doccomment">/// The symbol or ticker of the cryptocurrency (e.g., BTC for Bitcoin).
+    </span><span class="kw">pub </span>symbol: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    
+    <span class="doccomment">/// The full name of the cryptocurrency (e.g., Bitcoin).
+    </span><span class="kw">pub </span>name: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    
+    <span class="doccomment">/// The current price of the cryptocurrency in USD.
+    </span><span class="kw">pub </span>price_usd: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    
+    <span class="doccomment">/// The percent change in price over the last hour.
+    </span><span class="kw">pub </span>percent_change_1h: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    
+    <span class="doccomment">/// The percent change in price over the last 24 hours.
+    </span><span class="kw">pub </span>percent_change_24h: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    
+    <span class="doccomment">/// The percent change in price over the last 7 days.
+    </span><span class="kw">pub </span>percent_change_7d: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    
+    <span class="doccomment">/// The 24-hour trading volume of the cryptocurrency.
+    </span><span class="kw">pub </span>volume24: <span class="prelude-ty">Option</span>&lt;f64&gt;,
 }
 
 <span class="kw">impl </span>CryptoData {
-    <span class="kw">pub fn </span>truncated_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="doccomment">/// Returns a truncated version of the cryptocurrency name, limited to 30 characters.
+    ///
+    /// If `name` is `None`, returns an empty string. This is useful for displaying
+    /// abbreviated names in UI components.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// let crypto = CryptoData { name: Some("Bitcoin".to_string()), ..Default::default() };
+    /// assert_eq!(crypto.truncated_name(), "Bitcoin");
+    /// ```
+    </span><span class="kw">pub fn </span>truncated_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="self">self</span>.name.clone().unwrap_or_default().chars().take(<span class="number">30</span>).collect()
     }
 
-    <span class="kw">pub fn </span>formatted_price(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="doccomment">/// Returns the price formatted to six decimal places if parsable as a `f64`.
+    ///
+    /// If the price cannot be parsed or is `None`, returns the original `price_usd`
+    /// string value or an empty string if `price_usd` is also `None`.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// let crypto = CryptoData { price_usd: Some("1234.56789".to_string()), ..Default::default() };
+    /// assert_eq!(crypto.formatted_price(), "1234.567890");
+    /// ```
+    </span><span class="kw">pub fn </span>formatted_price(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(price) = <span class="kw-2">&amp;</span><span class="self">self</span>.price_usd {
             <span class="kw">if let </span><span class="prelude-val">Ok</span>(p) = price.parse::&lt;f64&gt;() {
                 <span class="kw">return </span><span class="macro">format!</span>(<span class="string">"{:.6}"</span>, p);
@@ -116,19 +226,39 @@
         <span class="self">self</span>.price_usd.clone().unwrap_or_default()
     }
 
-    <span class="kw">pub fn </span>formatted_percent_change_1h(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="doccomment">/// Returns the 1-hour percent change as a string, or an empty string if `None`.
+    ///
+    /// This method ensures a consistent return type for display purposes.
+    </span><span class="kw">pub fn </span>formatted_percent_change_1h(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="self">self</span>.percent_change_1h.clone().unwrap_or_default()
     }
 
-    <span class="kw">pub fn </span>formatted_percent_change_24h(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="doccomment">/// Returns the 24-hour percent change as a string, or an empty string if `None`.
+    ///
+    /// This method ensures a consistent return type for display purposes.
+    </span><span class="kw">pub fn </span>formatted_percent_change_24h(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="self">self</span>.percent_change_24h.clone().unwrap_or_default()
     }
 
-    <span class="kw">pub fn </span>formatted_percent_change_7d(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="doccomment">/// Returns the 7-day percent change as a string, or an empty string if `None`.
+    ///
+    /// This method ensures a consistent return type for display purposes.
+    </span><span class="kw">pub fn </span>formatted_percent_change_7d(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="self">self</span>.percent_change_7d.clone().unwrap_or_default()
     }
 
-    <span class="kw">pub fn </span>formatted_volume(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="doccomment">/// Returns the 24-hour trading volume formatted to two decimal places.
+    ///
+    /// If `volume24` is `None`, returns an empty string. This method provides
+    /// a formatted representation of trading volume for display.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// let crypto = CryptoData { volume24: Some(12345.6789), ..Default::default() };
+    /// assert_eq!(crypto.formatted_volume(), "12345.68");
+    /// ```
+    </span><span class="kw">pub fn </span>formatted_volume(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="self">self</span>.volume24.map(|v| <span class="macro">format!</span>(<span class="string">"{:.2}"</span>, v)).unwrap_or_default()
     }
 }

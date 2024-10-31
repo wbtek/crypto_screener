@@ -75,6 +75,44 @@
 <a href="#75" id="75">75</a>
 <a href="#76" id="76">76</a>
 <a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
+<a href="#82" id="82">82</a>
+<a href="#83" id="83">83</a>
+<a href="#84" id="84">84</a>
+<a href="#85" id="85">85</a>
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
 </pre></div><pre class="rust"><code>
 <span class="comment">// The MIT License (MIT)
 //
@@ -99,12 +137,51 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+</span><span class="doccomment">//! # Header View Module
+//!
+//! This module provides the `view_header` function, which generates a sortable table header 
+//! for the WBTek Crypto Screener application. The header displays column labels for various 
+//! cryptocurrency attributes and allows users to click on these headers to sort the data.
+
 </span><span class="kw">use </span>yew::prelude::{Context, Html, html};
 <span class="kw">use </span><span class="kw">super</span>::button::HeaderButton;
 <span class="kw">use </span><span class="kw">super</span>::component::Model;
 <span class="kw">use </span><span class="kw">super</span>::message::Msg;
 
-<span class="kw">pub fn </span>view_header(ctx: <span class="kw-2">&amp;</span>Context&lt;Model&gt;, underscore_line: <span class="kw-2">&amp;</span>str, model: <span class="kw-2">&amp;</span>Model) -&gt; Html {
+<span class="doccomment">/// Renders a table header with sortable columns for cryptocurrency data.
+///
+/// This function creates a row of `HeaderButton` components representing different data columns
+/// (such as "Symbol," "Name," "Price (USD)," and percentage changes over various periods). Each
+/// button displays a label and triggers a sorting action when clicked, updating the application's 
+/// sorting state based on the selected column.
+///
+/// # Parameters
+///
+/// - `ctx`: Reference to the Yew [`Context`] for the main application [`Model`], which allows
+///   interaction with component links for handling click events.
+/// - `underscore_line`: A string of underscores used as a visual separator under the header row.
+/// - `model`: A reference to the main application model, used to retrieve the current sorting order
+///   for each column.
+///
+/// # Returns
+///
+/// Returns an [`Html`] fragment containing the table header with sortable columns.
+///
+/// # Column Definitions
+///
+/// Each `HeaderButton` represents a column in the table and includes:
+/// - A label indicating the column's name.
+/// - A `sort_order` representing the current sorting state for the column (ascending or descending).
+/// - An `onclick` callback that sends a `Msg::SortBy` message to update the sort order.
+///
+/// # Example
+///
+/// ```rust
+/// let underscore_line = "_".repeat(130);
+/// let header = view_header(ctx, &amp;underscore_line, model);
+/// ```
+
+</span><span class="kw">pub fn </span>view_header(ctx: <span class="kw-2">&amp;</span>Context&lt;Model&gt;, underscore_line: <span class="kw-2">&amp;</span>str, model: <span class="kw-2">&amp;</span>Model) -&gt; Html {
     <span class="kw">let </span>link = ctx.link();
     <span class="macro">html!</span> {
         &lt;&gt;
@@ -151,5 +228,4 @@
         &lt;/&gt;
     }
 }
-
 </code></pre></div></section></main></body></html>

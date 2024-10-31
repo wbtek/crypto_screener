@@ -148,6 +148,59 @@
 <a href="#148" id="148">148</a>
 <a href="#149" id="149">149</a>
 <a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
 </pre></div><pre class="rust"><code>
 <span class="comment">// The MIT License (MIT)
 //
@@ -172,6 +225,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+</span><span class="doccomment">//! # Main Application Model for WBTek Crypto Screener
+//!
+//! This module defines the main application model (`Model`) and handles core application functionality
+//! such as fetching data, updating the UI, sorting, and managing selected cells. It coordinates with 
+//! various submodules and components to render the "Crypto Screener" interface in a Yew application.
+//!
+//! ## Main Components
+//!
+//! - `Model`: The main application state, managing data, sort state, and UI visibility.
+//! - `Msg`: Message types used to trigger updates to the application state and user interactions.
+//! - `COMPONENT_INIT_COUNT`: Tracks component initialization to ensure certain actions (e.g., initial data fetch) 
+//!   run only once.
+
 </span><span class="kw">use </span>std::collections::HashSet;
 <span class="kw">use </span>std::sync::atomic::{AtomicUsize, Ordering};
 <span class="kw">use </span>yew::prelude::{Component, Context, Html, html};
@@ -184,26 +250,47 @@
 <span class="kw">use </span><span class="kw">super</span>::rowview::view_rows;
 <span class="kw">use </span><span class="kw">super</span>::utils::toggle_cell_selection;
 
-<span class="kw">static </span>COMPONENT_INIT_COUNT: AtomicUsize = AtomicUsize::new(<span class="number">0</span>);
+<span class="doccomment">/// Tracks the number of `Model` instances created to ensure initial setup
+/// (such as data fetch) only happens once. This helps prevent redundant 
+/// initialization if the component is accidentally created multiple times.
+</span><span class="kw">static </span>COMPONENT_INIT_COUNT: AtomicUsize = AtomicUsize::new(<span class="number">0</span>);
 
-<span class="kw">pub struct </span>Model {
-    <span class="kw">pub </span>data: Vec&lt;CryptoData&gt;,
-    <span class="kw">pub </span>error_message: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="kw">pub </span>show_about: bool,  <span class="comment">// Track visibility of "About" modal
+<span class="doccomment">/// Represents the main application model, managing the application's core state.
+///
+/// `Model` includes fields for application data, error messages, modal visibility, 
+/// sorting options, and cell selections. It implements the Yew `Component` trait, 
+/// handling updates and rendering based on incoming messages (`Msg`).
+</span><span class="kw">pub struct </span>Model {
+    <span class="doccomment">/// The list of cryptocurrency data currently loaded.
+    </span><span class="kw">pub </span>data: Vec&lt;CryptoData&gt;,
+    
+    <span class="doccomment">/// Holds error messages from failed data fetch attempts, displayed in the UI.
+    </span><span class="kw">pub </span>error_message: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    
+    <span class="doccomment">/// Tracks visibility of the "About" modal.
+    </span><span class="kw">pub </span>show_about: bool,
+    
+    <span class="doccomment">/// Specifies the current column used for sorting.
     </span><span class="kw">pub </span>sort_by: <span class="prelude-ty">Option</span>&lt;String&gt;,
-    <span class="kw">pub </span>sort_asc: bool,
-    <span class="kw">pub </span>selected_cells: HashSet&lt;(String, String)&gt;,
+    
+    <span class="doccomment">/// Indicates whether sorting is in ascending order.
+    </span><span class="kw">pub </span>sort_asc: bool,
+    
+    <span class="doccomment">/// HashSet of selected cells, represented by unique `(id, column)` pairs.
+    </span><span class="kw">pub </span>selected_cells: HashSet&lt;(String, String)&gt;,
 }
 
 <span class="kw">impl </span>Component <span class="kw">for </span>Model {
     <span class="kw">type </span>Message = Msg;
     <span class="kw">type </span>Properties = ();
 
-    <span class="kw">fn </span>create(ctx: <span class="kw-2">&amp;</span>Context&lt;<span class="self">Self</span>&gt;) -&gt; <span class="self">Self </span>{
+    <span class="doccomment">/// Creates the `Model` component, initializing data and triggering an initial data fetch
+    /// if this is the first instance. Logs a warning if additional instances are created.
+    </span><span class="kw">fn </span>create(ctx: <span class="kw-2">&amp;</span>Context&lt;<span class="self">Self</span>&gt;) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>count = COMPONENT_INIT_COUNT.fetch_add(<span class="number">1</span>, Ordering::SeqCst);
         <span class="kw">if </span>count == <span class="number">0 </span>{
             <span class="macro">log::info!</span>(<span class="string">"Model component created: {}"</span>, count);
-            ctx.link().send_message(Msg::FetchData); <span class="comment">// Ensure this only runs once
+            ctx.link().send_message(Msg::FetchData); <span class="comment">// Initial data fetch
         </span>} <span class="kw">else </span>{
             <span class="macro">log::warn!</span>(<span class="string">"Model component created multiple times: {}"</span>, count);
         }
@@ -212,17 +299,31 @@
             data: Vec::new(), 
             error_message: <span class="prelude-val">None</span>, 
             show_about: <span class="bool-val">false</span>,
-            sort_by: <span class="prelude-val">Some</span>(<span class="string">"volume24"</span>.to_string()), <span class="comment">// Sort this out of the gate
-            </span>sort_asc: <span class="bool-val">false</span>, <span class="comment">// Descending
+            sort_by: <span class="prelude-val">Some</span>(<span class="string">"volume24"</span>.to_string()), <span class="comment">// Initial sort by "volume24"
+            </span>sort_asc: <span class="bool-val">false</span>, <span class="comment">// Default to descending
             </span>selected_cells: HashSet::new(),
         }
     }
 
-    <span class="kw">fn </span>update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ctx: <span class="kw-2">&amp;</span>Context&lt;<span class="self">Self</span>&gt;, msg: <span class="self">Self</span>::Message) -&gt; bool {
+    <span class="doccomment">/// Updates the `Model` state in response to various messages (`Msg`).
+    ///
+    /// The `update` function handles different actions based on the incoming message,
+    /// such as fetching data, setting data, toggling the sort order, and managing 
+    /// the selection state of cells.
+    ///
+    /// # Parameters
+    ///
+    /// - `ctx`: Reference to the component’s context.
+    /// - `msg`: The message triggering the update.
+    ///
+    /// # Returns
+    ///
+    /// Returns `true` if the UI needs to be re-rendered after processing the message.
+    </span><span class="kw">fn </span>update(<span class="kw-2">&amp;mut </span><span class="self">self</span>, ctx: <span class="kw-2">&amp;</span>Context&lt;<span class="self">Self</span>&gt;, msg: <span class="self">Self</span>::Message) -&gt; bool {
         <span class="kw">match </span>msg {
             Msg::FetchData =&gt; {
-                <span class="macro">log::info!</span>(<span class="string">"Fetching data"</span>); <span class="comment">// Log when fetching data
-                </span><span class="kw">let </span>link = ctx.link().clone();
+                <span class="macro">log::info!</span>(<span class="string">"Fetching data"</span>);
+                <span class="kw">let </span>link = ctx.link().clone();
                 wasm_bindgen_futures::spawn_local(<span class="kw">async move </span>{
                     <span class="kw">let </span>data = fetch_data().<span class="kw">await</span>;
                     link.send_message(Msg::SetData(data));
@@ -247,7 +348,7 @@
                     <span class="self">self</span>.sort_asc = !<span class="self">self</span>.sort_asc;
                 } <span class="kw">else </span>{
                     <span class="self">self</span>.sort_by = <span class="prelude-val">Some</span>(column.clone());
-                    <span class="self">self</span>.sort_asc = column.eq(<span class="string">"symbol"</span>) || column.eq(<span class="string">"name"</span>); <span class="comment">// Sort the rest descending
+                    <span class="self">self</span>.sort_asc = column.eq(<span class="string">"symbol"</span>) || column.eq(<span class="string">"name"</span>); <span class="comment">// Sort alphabetically ascending
                 </span>}
                 sort_data(<span class="kw-2">&amp;mut </span><span class="self">self</span>.data, <span class="kw-2">&amp;</span><span class="self">self</span>.sort_by, <span class="self">self</span>.sort_asc);
                 <span class="bool-val">true
@@ -257,15 +358,21 @@
                 <span class="bool-val">true
             </span>}
             Msg::ToggleAbout =&gt; {
-                <span class="self">self</span>.show_about = !<span class="self">self</span>.show_about; <span class="comment">// Toggle visibility
+                <span class="self">self</span>.show_about = !<span class="self">self</span>.show_about; <span class="comment">// Toggle "About" modal visibility
                 </span><span class="bool-val">true
             </span>}
         }
     }
 
-    <span class="kw">fn </span>view(<span class="kw-2">&amp;</span><span class="self">self</span>, ctx: <span class="kw-2">&amp;</span>Context&lt;<span class="self">Self</span>&gt;) -&gt; Html {
-        <span class="kw">let </span>underscore_line = <span class="string">"_"</span>.repeat(<span class="number">130</span>);
-        <span class="macro">html!</span> {
+    <span class="doccomment">/// Renders the main view of the application.
+    ///
+    /// This function creates the application layout, including the title, the
+    /// "About" button, the error message (if any), and the sortable data table.
+    /// It also conditionally renders the "About" modal if `show_about` is `true`.
+    </span><span class="kw">fn </span>view(<span class="kw-2">&amp;</span><span class="self">self</span>, ctx: <span class="kw-2">&amp;</span>Context&lt;<span class="self">Self</span>&gt;) -&gt; Html {
+        <span class="kw">let </span>underscore_line = <span class="string">"_"</span>.repeat(<span class="number">130</span>); <span class="comment">// For visual structure
+
+        </span><span class="macro">html!</span> {
             &lt;div&gt;
                 &lt;br /&gt;
                 &lt;div style=<span class="string">"display: flex; align-items: center;"</span>&gt;
@@ -297,5 +404,4 @@
         }
     }
 }
-
 </code></pre></div></section></main></body></html>
