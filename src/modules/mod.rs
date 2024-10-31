@@ -22,6 +22,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+//! # WBTek Crypto Screener Application Modules
+//!
+//! This file defines the main structure of the WBTek Crypto Screener application by organizing 
+//! and exposing various modules that handle different aspects of the app's functionality.
+//!
+//! ## Module Overview
+//!
+//! - `component`: Contains the primary `Model` component, managing the application’s main state and UI.
+//! - `about`: Defines the "About" modal view, providing information about the application and its usage.
+//! - `button`: Implements the `HeaderButton` component, used for sortable table headers.
+//! - `cryptodata`: Defines the `CryptoData` struct, which models cryptocurrency data fetched from an external API.
+//! - `headview`: Provides functionality for rendering the table header, including sorting interactions.
+//! - `fetch`: Contains functions for fetching data from the cryptocurrency API.
+//! - `implmodel`: Adds additional methods and utilities to the main `Model` component.
+//! - `message`: Defines messages (`Msg`) used to manage application state updates and user interactions.
+//! - `rowview`: Handles the rendering of rows within the cryptocurrency data table.
+//! - `sort`: Provides utilities for sorting data based on various criteria.
+//! - `utils`: Contains miscellaneous utility functions used throughout the application.
+//!
+//! Each module focuses on a specific part of the application's functionality, promoting organized
+//! and maintainable code structure. Together, they build a comprehensive interface for interacting
+//! with cryptocurrency data in a Yew application.
+
 pub mod component;
 
 mod about;

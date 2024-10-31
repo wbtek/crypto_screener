@@ -22,10 +22,49 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+//! # Header View Module
+//!
+//! This module provides the `view_header` function, which generates a sortable table header 
+//! for the WBTek Crypto Screener application. The header displays column labels for various 
+//! cryptocurrency attributes and allows users to click on these headers to sort the data.
+
 use yew::prelude::{Context, Html, html};
 use super::button::HeaderButton;
 use super::component::Model;
 use super::message::Msg;
+
+/// Renders a table header with sortable columns for cryptocurrency data.
+///
+/// This function creates a row of `HeaderButton` components representing different data columns
+/// (such as "Symbol," "Name," "Price (USD)," and percentage changes over various periods). Each
+/// button displays a label and triggers a sorting action when clicked, updating the application's 
+/// sorting state based on the selected column.
+///
+/// # Parameters
+///
+/// - `ctx`: Reference to the Yew [`Context`] for the main application [`Model`], which allows
+///   interaction with component links for handling click events.
+/// - `underscore_line`: A string of underscores used as a visual separator under the header row.
+/// - `model`: A reference to the main application model, used to retrieve the current sorting order
+///   for each column.
+///
+/// # Returns
+///
+/// Returns an [`Html`] fragment containing the table header with sortable columns.
+///
+/// # Column Definitions
+///
+/// Each `HeaderButton` represents a column in the table and includes:
+/// - A label indicating the column's name.
+/// - A `sort_order` representing the current sorting state for the column (ascending or descending).
+/// - An `onclick` callback that sends a `Msg::SortBy` message to update the sort order.
+///
+/// # Example
+///
+/// ```rust
+/// let underscore_line = "_".repeat(130);
+/// let header = view_header(ctx, &underscore_line, model);
+/// ```
 
 pub fn view_header(ctx: &Context<Model>, underscore_line: &str, model: &Model) -> Html {
     let link = ctx.link();
@@ -74,4 +113,3 @@ pub fn view_header(ctx: &Context<Model>, underscore_line: &str, model: &Model) -
         </>
     }
 }
-

@@ -22,10 +22,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+//! # Data Fetching Module
+//!
+//! This module provides functionality to fetch cryptocurrency data from an external API.
+//! The `fetch_data` function asynchronously requests data and parses it into a collection
+//! of `CryptoData` structs for use within the application.
+
 use reqwest::Client;
 use serde_json::Value;
 use super::cryptodata::CryptoData;
 
+/// Fetches cryptocurrency data from an external API and parses it into a vector of `CryptoData` structs.
+///
+/// This function uses `reqwest` to send an HTTP GET request to a cryptocurrency API,
+/// retrieves JSON data, and attempts to deserialize it into a list of `CryptoData` entries.
+/// If the data is unavailable or does not contain expected fields, an empty vector is returned.
+///
+/// # Returns
+///
+/// - `Ok(Vec<CryptoData>)`: A vector of `CryptoData` instances if the data is fetched and parsed successfully.
+/// - `Err(reqwest::Error)`: An error if the request or JSON parsing fails.
+///
+/// # Example
+///
+/// ```rust
+/// let data = fetch_data().await?;
+/// for crypto in data {
+///     println!("{:?}", crypto);
+/// }
+/// ```
+///
+/// # Errors
+///
+/// Returns a `reqwest::Error` if the HTTP request or JSON deserialization fails.
+///
+/// # API Endpoint
+///
+/// The function currently fetches data from:
+/// `https://api.coinlore.net/api/tickers/`. It retrieves general market information
+/// for various cryptocurrencies. An alternative API URL is commented out in the code.
 pub async fn fetch_data() -> Result<Vec<CryptoData>, reqwest::Error> {
     let client = Client::new();
     let res = client
@@ -36,6 +71,7 @@ pub async fn fetch_data() -> Result<Vec<CryptoData>, reqwest::Error> {
         .json::<Value>()
         .await?;
 
+    // Extracts and parses the "data" field into `CryptoData` structs if available.
     if let Some(array) = res.get("data").and_then(|d| d.as_array()) {
         let data: Vec<CryptoData> = array
             .iter()
@@ -43,7 +79,7 @@ pub async fn fetch_data() -> Result<Vec<CryptoData>, reqwest::Error> {
             .collect();
         Ok(data)
     } else {
+        // Returns an empty vector if "data" is missing or has invalid format
         Ok(Vec::new())
     }
 }
-

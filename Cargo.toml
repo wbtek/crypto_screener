@@ -38,6 +38,7 @@ lto = true       # Enable Link Time Optimization
 debug = true   # Enable debug symbols
 opt-level = 0  # No optimizations (default for debug builds)
 
+# crate-type must be cdylib for wasm-unknown-unknown target
 [lib]
 crate-type = ["cdylib"]
 
