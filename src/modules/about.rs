@@ -110,8 +110,8 @@ pub fn about_view(ctx: &Context<Model>) -> Html {
                     </a>
                     <br />
                     { "WBTek's Homepage: " }
-                        <a href="https://wbtek.slocum.net"
-                            target="_blank">{ "https://wbtek.slocum.net" }
+                        <a href="https://wbtek.net"
+                            target="_blank">{ "https://wbtek.net" }
                     </a>
 
                     <hr />

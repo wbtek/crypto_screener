@@ -24,7 +24,7 @@
 
 [package]
 name = "crypto_screener"
-version = "0.1.80"
+version = "0.1.81"
 edition = "2021"
 description = "A cryptocurrency screener application."
 repository = "https://github.com/wbtek/crypto_screener"
